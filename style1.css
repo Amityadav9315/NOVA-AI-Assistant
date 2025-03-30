@@ -1,0 +1,74 @@
+/* General reset for the navbar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #333; /* Dark background for the navbar */
+    padding: 10px 20px; /* Padding for space inside the navbar */
+    height: 60px; /* Set the height of the navbar */
+}
+
+/* Container for the navbar content */
+.navbar-container {
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: space-between; /* Space out content, if needed */
+    height: 100%;
+}
+
+/* Styling for the logo */
+.navbar-logo {
+    display: flex;
+    align-items: center; /* Align logo image and text */
+    text-decoration: none; /* Remove the default underline from the anchor */
+    color: white; /* Text color */
+}
+
+/* Logo image styling */
+.logo-img {
+    width: 40px; /* Set a fixed width for the logo image */
+    height: auto; /* Maintain aspect ratio of the image */
+    margin-right: 10px; /* Space between image and text */
+}
+
+/* Logo text styling */
+.navbar-logo span {
+    font-size: 24px; /* Set font size for the text */
+    font-weight: bold; /* Make the text bold */
+    letter-spacing: 1px; /* Add some spacing between letters */
+}
+
+/* Footer Section */
+.footer {
+    background-color: #333; /* Dark background to match navbar */
+    color: white; /* Text color */
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-content p {
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #1e90ff; /* Highlight color on hover */
+}
+
