@@ -12,8 +12,8 @@ function speak(text) {
 }
 
 function wishMe() {
-    var day = new Date();
-    var hour = day.getHours();
+    const day = new Date();
+    const hour = day.getHours();
 
     if (hour >= 0 && hour < 12) {
         speak("Good Morning Boss...");
@@ -44,26 +44,34 @@ btn.addEventListener('click', () => {
     recognition.start();
 });
 
+async function callBackend(endpoint, params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    const url = `/api/assistant/${endpoint}?${queryString}`;
+    const response = await fetch(url);
+    return await response.text();
+}
+
 function takeCommand(message) {
-    if (message.includes('hey') || message.includes('hello') || message.includes('Nova')) {
+    if (message.includes('hey') || message.includes('hello') || message.includes('nova')) {
         speak("Hello sir, How May I Help You?");
-    } else if (message.includes("open google")) {
+    } else if (message.includes('open google')) {
         window.open("https://google.com", "_blank");
         speak("Opening Google...");
-    } else if (message.includes("open youtube")) {
+    } else if (message.includes('open youtube')) {
         window.open("https://youtube.com", "_blank");
-        speak("Opening Youtube...");
-    } else if (message.includes("open facebook")) {
+        speak("Opening YouTube...");
+    } else if (message.includes('open facebook')) {
         window.open("https://facebook.com", "_blank");
         speak("Opening Facebook...");
+    } else if (message.includes('shutdown')) {
+        callBackend('shutdown')
+            .then(response => speak(response))
+            .catch(err => speak("Unable to process your request."));
     } else if (message.includes('what is') || message.includes('who is') || message.includes('what are')) {
-        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        const finalText = "This is what I found on the internet regarding " + message;
-        speak(finalText);
-    } else if (message.includes('wikipedia')) {
-        window.open(`https://en.wikipedia.org/wiki/${message.replace("wikipedia", "").trim()}`, "_blank");
-        const finalText = "This is what I found on Wikipedia regarding " + message;
-        speak(finalText);
+        const query = message.replace(" ", "+");
+        callBackend('info', { query })
+            .then(response => speak(response))
+            .catch(err => speak("Unable to fetch the information."));
     } else if (message.includes('time')) {
         const time = new Date().toLocaleString(undefined, { hour: "numeric", minute: "numeric" });
         const finalText = "The current time is " + time;
@@ -82,9 +90,9 @@ function takeCommand(message) {
         btn.disabled = true; // Disable the button to prevent restarting
         content.textContent = "Assistant shut down."; // Display a message
     } else {
-        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        const finalText = "I found some information for " + message + " on Google";
+        const query = message.replace(" ", "+");
+        window.open(`https://www.google.com/search?q=${query}`, "_blank");
+        const finalText = "I found some information for " + message + " on Google.";
         speak(finalText);
-        sout
     }
 }
